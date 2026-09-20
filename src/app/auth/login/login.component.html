@@ -1,0 +1,45 @@
+<h2>Sign in</h2>
+
+<form [formRoot]="loginForm">
+  <label>
+    <span>Email: </span>
+    <input
+      [formField]="loginForm.username"
+      type="email"
+      autocomplete="username"
+      placeholder="email@example.com"
+    />
+  </label>
+  @if (loginForm.username().touched() && loginForm.username().invalid()) {
+    <ul aria-live="polite">
+      @for (error of loginForm.username().errors(); track $index) {
+        <li>{{ error.message }}</li>
+      }
+    </ul>
+  }
+
+  <label>
+    <span>Password: </span>
+    <input
+      [formField]="loginForm.password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="**********"
+    />
+  </label>
+  @if (loginForm.password().touched() && loginForm.password().invalid()) {
+    <ul aria-live="polite">
+      @for (error of loginForm.password().errors(); track $index) {
+        <li>{{ error.message }}</li>
+      }
+    </ul>
+  }
+
+  <button type="submit" [disabled]="loginForm().invalid() || loginForm().submitting()">
+    @if (loginForm().submitting()) {
+      Signing in…
+    } @else {
+      Send
+    }
+  </button>
+</form>
