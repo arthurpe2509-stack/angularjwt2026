@@ -2,9 +2,9 @@
 
 <ul>
   @for (todo of todoList(); track todo.id) {
-    <li>{{ todo.title }}</li>
+  <li>{{ todo.title }}</li>
   } @empty {
-    <li>No todo yet.</li>
+  <li>No todo yet.</li>
   }
 </ul>
 
@@ -15,9 +15,15 @@
     <input formControlName="title" autocomplete="off" />
   </label>
   @if (todoForm.controls.title.touched && todoForm.controls.title.invalid) {
-    <ul aria-live="polite">
-      <li>Title is required</li>
-    </ul>
+  <ul aria-live="polite">
+    <li>Title is required</li>
+  </ul>
+  }
+  @if (isAdmin) {
+  <h2>Create a new todo item:</h2>
+  <form [formGroup]="todoForm" (ngSubmit)="submit()">
+    <!-- ...contenu inchangé... -->
+  </form>
   }
 
   <button type="submit" [disabled]="todoForm.invalid">Add</button>

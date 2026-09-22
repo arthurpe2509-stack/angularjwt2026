@@ -18,6 +18,7 @@ export class TodosComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
+  protected readonly isAdmin = this.authService.hasRole('ROLE_ADMIN');
   protected readonly todoList = signal<TodoItem[]>([]);
   protected readonly todoForm = new FormGroup({
     title: new FormControl('', {

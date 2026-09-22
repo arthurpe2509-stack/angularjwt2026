@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { roleGuard } from './auth/role.guard';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,8 @@ export const routes: Routes = [
   },
   {
     path: 'todos',
+    canActivate: [roleGuard],
+    data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] },
     loadComponent: () =>
       import('./todos/todos/todos.component').then(({ TodosComponent }) => TodosComponent),
   },
